@@ -59,4 +59,4 @@ def download_video(request):
             'dislikes': meta['dislike_count'], 'thumb': meta['thumbnails'][3]['url'],
             'duration': round(int(meta['duration'])/60, 2), 'views': f'{int(meta["view_count"]):,}'
         }
-        return context
+        return HttpResponse(content=context)
