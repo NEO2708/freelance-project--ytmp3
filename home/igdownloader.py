@@ -1,6 +1,7 @@
 import instaloader
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import urllib.request
 
 @api_view()
 
@@ -14,6 +15,9 @@ def download_post(request):
     likes = post.likes
     path = post.url
     isv = post.is_video
+    imgURL = path
+
+    urllib.request.urlretrieve(imgURL, "/Users/rangolivision/freelance-project--ytmp3/igdownload/ig01.png")
 
 
     # Download the post
