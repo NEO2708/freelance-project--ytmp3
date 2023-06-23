@@ -14,10 +14,10 @@ def download_post(request):
     likes = post.likes
     isv = post.is_video
 
+
     # Download the post
     a = L.download_post(post, target="downloads")
     print(a)
-
     return Response({
         'usernmae': username,
         'likes': likes,
