@@ -1,11 +1,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
 from django.shortcuts import render
 import youtube_dl
-from .forms import DownloadForm
-import re
+from pytube import YouTube
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -13,14 +11,25 @@ from rest_framework.response import Response
 
 
 def download_video(request):
-    inputt = "https://youtu.be/vUixgIXF2SY"
+
+    link=request.GET['link']
+    if 'm.' in link:
+            link = link.replace(u'm.', u'')
+
+    elif 'youtu.be' in link:
+            video_id = link.split('/')[-1]
+            link = 'https://www.youtube.com/watch?v=' + video_id
+    inputt = link
+    yt=YouTube(inputt)
+    
+
 
     if(inputt != ""):
         video_url = inputt
        
         print(video_url)
 
-        ydl_opts = {}
+        ydl_opts = { 'verbose': True, }
 
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             meta = ydl.extract_info(
@@ -47,10 +56,17 @@ def download_video(request):
         'dislikes': meta['dislike_count'], 'thumb': meta['thumbnails'][3]['url'],
         'duration': round(int(meta['duration'])/60, 2), 'views': f'{int(meta["view_count"]):,}'
     }
+    # len= round(int(yt.length)/60, 2)
+    # len=len-0.22
+    # print(len)
+    # context={
+    #     'title':yt.title,
+    #     'duration': len,
+    #     'thumb':yt.thumbnail_url,
+    #     'views':yt.views
+    # }
 
     return Response(context)
-
-
 
 # def hello_world(request):
 #     return Response({"message": "Hello, world!"})
