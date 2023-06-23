@@ -12,14 +12,15 @@ def download_post(request):
         L.context, url.split("/")[-2])
     username = post.owner_username
     likes = post.likes
+    path = post.url
     isv = post.is_video
 
 
     # Download the post
-    a = L.download_post(post, target="downloads")
-    print(a)
+    # a = L.download_post(post, target="downloads")
+
     return Response({
         'usernmae': username,
         'likes': likes,
-        'path': L.download_post(post, target="downloads")
+        'path': path,
     })
