@@ -17,7 +17,7 @@ def download_post(request):
     isv = post.is_video
     imgURL = path
 
-    urllib.request.urlretrieve(imgURL, "/Users/rangolivision/freelance-project--ytmp3/igdownload/ig01.png")
+    # urllib.request.urlretrieve(imgURL, "/Users/rangolivision/freelance-project--ytmp3/igdownload/ig01.png")
 
 
     # Download the post
