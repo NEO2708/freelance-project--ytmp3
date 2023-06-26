@@ -5,7 +5,7 @@ from home import igdownloader
 from home import postDownloader
 
 urlpatterns = [
-    path('/', views.download_video),
+    path('', views.download_video),
     path('insta',igdownloader.download_post ),
     path('downloadfile',postDownloader.download_file)
 ]
