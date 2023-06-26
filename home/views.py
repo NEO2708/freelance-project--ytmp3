@@ -59,5 +59,5 @@ def download_video(request):
     }
 
 
-    return HttpResponse(context)
+    return Response(context)
 
