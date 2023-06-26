@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['.vercel.app', '.now.sh','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -108,7 +109,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR,'db.sqlite3'),
+    }
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -121,3 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "templates")]
+
+MEDIA_ROOT =BASE_DIR /"media"
+MEDIA_URL ="/media/"

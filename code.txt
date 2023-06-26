@@ -1,0 +1,29 @@
+L = instaloader.Instaloader()
+    inputt = request.GET['link']
+    url = inputt
+    post = instaloader.Post.from_shortcode(
+        L.context, url.split("/")[-2])
+    istype=post.is_video
+    username = post.owner_username
+    likes = post.likes
+
+    if(istype == True):
+        video=post.video_url
+
+        
+        return Response({
+        "type":"video",
+        'usernmae': username,
+        'likes': likes,
+        'video_url':video,
+    })
+        
+    else:
+        path = post.url
+        imgURL = path
+        return Response({
+        "type":"image",
+        'usernmae': username,
+        'likes': likes,
+        'img_url':imgURL,
+    })
