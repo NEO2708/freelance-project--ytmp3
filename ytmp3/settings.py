@@ -112,7 +112,7 @@ USE_TZ = True
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR,'db.sqlite3'),
+        "NAME": BASE_DIR / 'db.sqlite3',
     }
 }
 # Static files (CSS, JavaScript, Images)
@@ -124,9 +124,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR, "templates"]
 
 MEDIA_ROOT =BASE_DIR /"media"
 MEDIA_URL ="/media/"
