@@ -14,3 +14,4 @@ django_cors_headers==4.1.0
 pytube==15.0.0
 instaloader==4.9.6
 db-sqlite3==0.0.1
+graphene-django==3.1.2
