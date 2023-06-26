@@ -13,4 +13,4 @@ djangorestframework==3.14.0
 django_cors_headers==4.1.0
 pytube==15.0.0
 instaloader==4.9.6
-db-sqlite==3-0.0.1
+db-sqlite3==0.0.1
