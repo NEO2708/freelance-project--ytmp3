@@ -9,12 +9,14 @@ from django.http import HttpResponse
 def download_file(request):
     L = instaloader.Instaloader()
     inputt = request.GET['link']
+    
     url = inputt
     post = instaloader.Post.from_shortcode(
         L.context, url.split("/")[-2])
     istype=post.is_video
     username = post.owner_username
     likes = post.likes
+
 
     if(istype == True):
         video=post.video_url
@@ -25,6 +27,8 @@ def download_file(request):
         'username': username,
         'likes': likes,
         'video_url':video,
+        'mediac': post._full_metadata_dict
+
     })
         
     else:
@@ -35,4 +39,5 @@ def download_file(request):
         'username': username,
         'likes': likes,
         'img_url':imgURL,
+        'mediac': post._full_metadata_dict
     })

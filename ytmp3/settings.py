@@ -26,11 +26,12 @@ SECRET_KEY = 'django-insecure-!ty+0hg$s3$lr%8)ms^jct02-3_r6k(8=tau2d@$gaacbsjtn@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh','127.0.0.1']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh','127.0.0.1','localhost','166c-2401-4900-1c80-c727-18af-16f3-f4fe-e513.ngrok-free.app']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'home.apps.HomeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -109,12 +109,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR,'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR,'db.sqlite3'),
+    }
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 

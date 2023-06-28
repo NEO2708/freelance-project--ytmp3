@@ -53,6 +53,7 @@ def download_video(request):
   
     context = {
         'title': meta['title'],
+        'streams': video_audio_streams,
         'description': meta['description'], 'likes': meta['like_count'],
         'dislikes': meta['dislike_count'], 'thumb': meta['thumbnails'][3]['url'],
         'duration': round(int(meta['duration'])/60, 2), 'views': f'{int(meta["view_count"]):,}'
