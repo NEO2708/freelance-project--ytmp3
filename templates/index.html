@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .col {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #download .row {
+            width: 100%;
+            max-width: 800px;
+            height: 100px;
+        }
+
+        #download {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #download .row a {
+            width: 150px;
+            height: 50px;
+            background-color: black;
+            border-radius: 30px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all;
+            transition-duration: 0.2s;
+
+
+        }
+
+        #download .row a:hover {
+            /* background-color: rgb(68, 68, 68); */
+            transform: scale(1);
+            border: 2px solid black;
+        }
+
+        #content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            text-align: start;
+
+        }
+
+        #content span {
+            width: 100%;
+            margin-top: 10px;
+            margin-left: 10px;
+            max-width: 500px;
+        }
+
+        #content img {
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
+        #title {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        body{
+            width: 100%;
+        }
+        :root{
+            --txtclr: black;
+            --thclr:#7017FF
+        }
+        .df{
+            display: flex;
+        }
+        .r{
+            flex-direction: row;
+        }
+        .sa{
+            justify-content: space-around;
+        }
+        .ca{
+            align-items: center;
+        }
+        .lg{
+            color: var(--txtclr);
+        }
+        .un{
+            text-decoration: none;
+        }
+        .bb{
+            font-weight: 800;
+        }
+        .asd{
+            color: var(--thclr);
+        }
+        header{
+            height: 80px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-bottom: 2px solid black;
+
+        }
+        nav{
+            width: 100%;
+
+        }
+        #form{
+            margin-top: 80px;
+            width: 100%;
+            padding: 10px;
+            background: rgba(217, 217, 217, 0.20);
+
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <header class="df r sa ca" >
+        <nav class="df r sa ca" >
+            <a class=" un" href="#">
+
+                <h1 class="lg">Virtual Downloader</h1>
+            </a>
+            <a class="bb asd "  href="#">How To Download ?</a>
+        </nav>
+    </header>
+    <section id="form" >
+
+            <input type="text" id="postUrlInputIg" placeholder="Enter Instagram Post URL">
+            <button id="downloadButtonig">Download</button>
+
+
+    </section>
+    
+
+    <section id="content">
+
+    </section>
+    <section id="download">
+    </section>
+    <script>
+        var igdownload = document.getElementById("downloadButtonig")
+
+        igdownload.addEventListener("click", () => {
+            var linkf = document.getElementById("postUrlInputIg").value;
+            var url = "http://127.0.0.1:8000/insta?link=" + linkf
+            fetch(url, { mode: 'cors', method: "GET" })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                    //           content.innerHTML = `
+                    //   <div class='col' >s
+                    //   <span id="title">Username: ${data.username}</span>
+                    //   <span id="views">Likes: ${data.likes}</span>
+                    //   <span id="duration">Type: ${data.type}</span>    
+                    //   </div>
+                    //   `
+                    //   var username=data.username;
+                    //   if(data.type =="video"){
+                    //     download.innerHTML = `
+                    //     <div class="row">
+                    //     <button onclick="reqdownload()" >Download</button>
+
+                    // </div>
+                    //     `
+                    //   }
+                    //   else{
+                    //     download.innerHTML = `
+                    //     <div class="row">
+                    //     <button onclick="reqdownloadimg()" >Download</button>
+
+                    // </div>`
+                    //   }
+
+
+                    console.log("Done")
+
+                }
+
+
+                )
+        })
+            .catch(error => console.error(error))
+    </script>
+
+    <!-- <script src="/templates/script.js"></script> -->
+</body>
+
+</html>

@@ -14,11 +14,13 @@ import datetime
 
 def InstaDownloader(request):
     inputt =request.GET['link']
-
-    cred = credentials.Certificate('/Users/rangolivision/freelance-project--ytmp3/static/khudkibook-firebase-adminsdk-vegxe-be3361f282.json')
-    firebase_admin.initialize_app(cred, {
-    "storageBucket": "khudkibook.appspot.com"
-    })
+    if not firebase_admin._apps:
+    # Initialize the Firebase app
+        cred = credentials.Certificate('/Users/rangolivision/freelance-project--ytmp3/static/khudkibook-firebase-adminsdk-vegxe-be3361f282.json')
+        firebase_admin.initialize_app(cred, {
+        "storageBucket": "khudkibook.appspot.com"
+        })
+    
     
     db = firestore.client()
 
