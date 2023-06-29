@@ -55,7 +55,7 @@ def InstaDownloader(request):
     
         # Checking if the post is private
     if(isprivate== True):
-        return Response("Requested POST is PRIVATE")
+        return Response({"account_type":True})
     else:
         username = post.owner_username
         likes = post.likes
@@ -121,7 +121,7 @@ def InstaDownloader(request):
                     image=upload_file(file_url, file_name)
                     # imgcover.append(image)
                     imagepost.append(image)         
-            return Response({"videourls":videopost,"imageurls":imagepost,"username":username,"likes":likes,"profilepic":profile_pic,"type":"video"})
+            return Response({"account_type":True,"videourls":videopost,"imageurls":imagepost,"username":username,"likes":likes,"profilepic":profile_pic,"type":"video"})
         else:
             istype=post.is_video
             if(istype==True):
@@ -129,13 +129,15 @@ def InstaDownloader(request):
                 file_url = video
                 file_name = "VID"+username+".mp4"
                 video=upload_file(file_url, file_name)
-                return Response({"video_url":video,"username":username,"likes":likes,"profilepic":profile_pic,"type":"video"})
+                videopost.append(video)
+                return Response({"account_type":False,"videourls":videopost, "imageurls": imagepost, "username":username,"likes":likes,"profilepic":profile_pic,"type":"video"})
             else:
                 image=post.url
                 file_url = image
                 file_name = "VID"+username+".png"
                 image=upload_file(file_url, file_name)
-                return Response({"image_url":image,"username":username,"likes":likes,"profilepic":profile_pic,"type":"image"})
+                imagepost.append(image)
+                return Response({"account_type":False,"imageurls":imagepost,"videourls": videopost,"username":username,"likes":likes,"profilepic":profile_pic,"type":"image"})
 
 
 

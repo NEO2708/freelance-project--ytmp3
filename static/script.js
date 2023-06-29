@@ -1,52 +1,9 @@
-var dbtn = document.getElementById("downloadButton");
+
 var title = document.getElementById("title")
 var content = document.getElementById("content")
 var download = document.getElementById("download")
-var Username=""
-// Youtubedownloader
-dbtn.addEventListener("click", () => {
-    var linkf = document.getElementById("postUrlInput").value;
-
-    var url = "http://127.0.0.1:8000/insta?link=" +linkf
-    console.log(url);
-    fetch(url, { mode: 'cors', method: "GET" })
-        .then((response) => response.json())
-        .then((data) => {
-            fetch(url, { mode: 'cors', method: "GET" })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data)
-            //         content.innerHTML = `
-            // <img src="${data.thumb}" id="thumb"></img>
-            // <div class='col' >
-            // <span id="title">${data.title}</span>
-            // <span id="views">Views: ${data.views}</span>
-            // <span id="duration">Duration: ${data.duration}</span>
-            // <span id="likes">Likes: ${data.likes}</span>       
-            // </div>
-            // `
-
-            //         download.innerHTML += `
-            //     <div class="row">
-            //     <a href="/ytd/360p/${data.name + ".mp4"}" download="${data.title}.mp4">360p</a>
-            //     <a href="/ytd/480p/${data.name + ".mp4"}" download="${data.title}.mp4">480p</a>
-            //     <a href="/ytd/720p/${data.name + ".mp4"}" download="${data.title}.mp4">720p</a>
-            //     <a href="/ytd/1080p/${data.name + ".mp4"}" download="${data.title}.mp4">1080p</a>
-            //     <a href="/ytd/audio/${data.name + ".mp4"}" download="${data.title}.mp3">Audio</a>
-            // </div>
-            //     `
-                    console.log("Done")
-
-                }
 
 
-                )
-        })
-        .catch(error => console.error(error))
-    downloadFile(url)
-    
-
-})
 
 // download the file
 function downloadFile(posturl,type) {
@@ -125,14 +82,9 @@ igdownload.addEventListener("click",()=>{
           //     <button onclick="reqdownloadimg()" >Download</button>
 
           // </div>`
-          //   }
-
-                    
-                    console.log("Done")
-
+          //   }                   
+                console.log("Done")
                 }
-
-
                 )
         })
         .catch(error => console.error(error))
