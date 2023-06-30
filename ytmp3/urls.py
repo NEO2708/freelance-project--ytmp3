@@ -9,8 +9,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('home.urls')),
 
-]
-
-if settings.DEBUG:
-    urlpatterns+=static(settings.STATIC_URL, doucment_root=settings.STATIC_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
