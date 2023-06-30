@@ -39,14 +39,14 @@ function downloadFile(posturl, type) {
 // download video 
 function reqdownload() {
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "http://127.0.0.1:8000/insta?link=" + linkf
+    var url = "ec4e-2401-4900-1c80-c727-2001-abb9-e3c2-2207.ngrok-free.app/insta?link=" + linkf
     var type = "video"
     downloadFile(url, type)
 }
 // download image
 function reqdownloadimg() {
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "http://127.0.0.1:8000/insta?link=" + linkf
+    var url = "ec4e-2401-4900-1c80-c727-2001-abb9-e3c2-2207.ngrok-free.app/insta?link=" + linkf
     var type = "image"
     downloadFile(url, type)
 }
@@ -57,7 +57,7 @@ var loader = document.getElementById("loader")
 igdownload.addEventListener("click", () => {
     loader.style.display = "flex";
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "http://127.0.0.1:8000/insta?link=" + linkf
+    var url = "ec4e-2401-4900-1c80-c727-2001-abb9-e3c2-2207.ngrok-free.app/insta?link=" + linkf
     fetch(url, { mode: 'cors', method: "GET" })
         .then((response) => response.json())
         .then((data) => {
