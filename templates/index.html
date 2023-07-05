@@ -91,14 +91,14 @@ function downloadFile(posturl, type) {
 // download video 
 function reqdownload() {
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "https://355f-2401-4900-1c80-c727-2001-abb9-e3c2-2207.ngrok-free.app/insta?link=" + linkf
+    var url = "https://b19a-2401-4900-1f3f-e88a-4126-62cf-d609-86cd.ngrok-free.app/insta?link=" + linkf
     var type = "video"
     downloadFile(url, type)
 }
 // download image
 function reqdownloadimg() {
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "https://355f-2401-4900-1c80-c727-2001-abb9-e3c2-2207.ngrok-free.app/insta?link=" + linkf
+    var url = "https://b19a-2401-4900-1f3f-e88a-4126-62cf-d609-86cd.ngrok-free.app/insta?link=" + linkf
     var type = "image"
     downloadFile(url, type)
 }
@@ -109,7 +109,7 @@ var loader = document.getElementById("loader")
 igdownload.addEventListener("click", () => {
     loader.style.display = "flex";
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "https://355f-2401-4900-1c80-c727-2001-abb9-e3c2-2207.ngrok-free.app/insta?link=" + linkf
+    var url = "https://b19a-2401-4900-1f3f-e88a-4126-62cf-d609-86cd.ngrok-free.app/insta?link=" + linkf
     fetch(url, { mode: 'cors', method: "GET" })
         .then((response) => response.json())
         .then((data) => {

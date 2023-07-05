@@ -150,7 +150,7 @@ def InstaDownloader(request):
                 file_name = "VID"+username+".png"
                 image=upload_file(file_url, file_name)
                 imagepost.append(image)
-                return Response({"account_type":False,"imageurls":imagepost,"videourls": videopost,"username":username,"likes":likes,"profilepic":profile_pic,"type":"image"})
+                return Response({"stream":media,"account_type":False,"imageurls":imagepost,"videourls": videopost,"username":username,"likes":likes,"profilepic":profile_pic,"type":"image"})
 
 
 

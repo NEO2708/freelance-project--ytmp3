@@ -16,3 +16,4 @@ instaloader==4.9.6
 db-sqlite3==0.0.1
 graphene-django==3.1.2
 firebase_admin==6.2.0
+apify_client==1.2.2
