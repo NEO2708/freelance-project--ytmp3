@@ -1,19 +1,25 @@
-import instaloader
+
 import datetime
 import firebase_admin
+import urllib.request
 from firebase_admin import credentials
 from firebase_admin import firestore
-import urllib.request
 from firebase_admin import storage
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import datetime
+from apify_client import ApifyClient
 
 
 @api_view()
 
+
 def InstaDownloader(request):
     inputt =request.GET['link']
+    stream=[]
+    videopost=[]
+    imagepost=[]
+    sidepli=[]
     if not firebase_admin._apps:
     # Initialize the Firebase app
         cred = credentials.Certificate({
@@ -36,7 +42,6 @@ def InstaDownloader(request):
     
     
     db = firestore.client()
-
     def upload_file(url, filename):
         # Fetch the file from the URL
         file_data = urllib.request.urlopen(url).read()
@@ -50,113 +55,79 @@ def InstaDownloader(request):
         file_ref = db.collection('files').document()
         file_ref.set({
             'filename': filename,
-            'download_url': blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET'),
+            'download_url': blob.generate_signed_url(datetime.timedelta(minutes=5), method='GET'),
         })
 
         # Return the downloadable link
-        return blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET')
+        return blob.generate_signed_url(datetime.timedelta(minutes=5), method='GET')
+    client = ApifyClient("apify_api_fm36Y2p2MK3N2YBIIj7Yir32u7nQ7m0eV4rH")
 
-    L = instaloader.Instaloader()
-    url = inputt
-    post = instaloader.Post.from_shortcode(
-        L.context, url.split("/")[-2])
-    media= post._full_metadata_dict
-    # print(media)
-    owner=media.get("owner")
-    profile_pic=owner.get("profile_pic_url")
-    isprivate=owner.get("is_private")
+    # Prepare the Actor input
+    run_input = {
+        "directUrls": [inputt],
+        "resultsType": "details",
+        "resultsLimit": 200,
+        "searchType": "hashtag",
+        "searchLimit": 1,
+        "proxy": {
+            "useApifyProxy": True,
+            "apifyProxyGroups": ["RESIDENTIAL"],
+        },
+        "maxRequestRetries": 11,
+        "extendOutputFunction": """async ({ data, item, helpers, page, customData, label }) => {
+      return item;
+    }""",
+        "extendScraperFunction": """async ({ page, request, label, response, helpers, requestQueue, logins, addProfile, addPost, addLocation, addHashtag, doRequest, customData, Apify }) => {
+        
+    }""",
+        "customData": {},
+    }
+
+    # Run the Actor and wait for it to finish
+    run = client.actor("apify/instagram-scraper").call(run_input=run_input)
+
+    # Fetch and print Actor results from the run's dataset (if there are any)
+    for item in client.dataset(run["defaultDatasetId"]).iterate_items():
+
+        stream.append(item)
+    newstream=stream[0]
+    ptype=newstream.get("type")
+    caption=newstream.get("caption")
+    username=newstream.get("ownerUsername")
+    name=newstream.get("ownerFullName")
+    if(ptype == "Video"):
+        video=newstream.get("videoUrl")
+        file_url = video
+        file_name = "VID"+username+".mp4"
+        video=upload_file(file_url, file_name)
+        videopost.append(video)
     
-        # Checking if the post is private
-    if(isprivate== True):
-        return Response({"account_type":True})
-    else:
-        username = post.owner_username
-        likes = post.likes
-        mediacount=post.mediacount
-        print(mediacount)
-        imagepost=[]
-        videocover=[]
-        imgcover=[]
-        videopost=[]
-        if(mediacount > 1):
-            sidecar=media.get("edge_sidecar_to_children")
-            edge=sidecar.get("edges")
-
-            for i in range(mediacount):
-                if(i==0):
-                    filename=f'{"VIG001"+username+".png"}'
-                    filenamev=f'{"VIG001"+username+".mp4"}'
-                if(i==1):
-                    filename=f'{"VIG002"+username+".png"}'
-                    filenamev=f'{"VIG002"+username+".mp4"}'
-                if(i==2):
-                    filename=f'{"VIG003"+username+".png"}'
-                    filenamev=f'{"VIG003"+username+".mp4"}'
-                if(i==3):
-                    filename=f'{"VIG004"+username+".png"}'
-                    filenamev=f'{"VIG004"+username+".mp4"}'
-                if(i==4):
-                    filename=f'{"VIG005"+username+".png"}'
-                    filenamev=f'{"VIG005"+username+".mp4"}'
-                if(i==5):
-                    filename=f'{"VIG006"+username+".png"}'
-                    filenamev=f'{"VIG006"+username+".mp4"}'
-                if(i==6):
-                    filename=f'{"VIG007"+username+".png"}'
-                    filenamev=f'{"VIG007"+username+".mp4"}'
-                if(i==7):
-                    filename=f'{"VIG008"+username+".png"}'
-                    filenamev=f'{"VIG008"+username+".mp4"}'
-                if(i==8):
-                    filename=f'{"VIG009"+username+".png"}'
-                    filenamev=f'{"VIG009"+username+".mp4"}'
-                if(i==9):
-                    filename=f'{"VIG010"+username+".png"}'
-                    filenamev=f'{"VIG010"+username+".mp4"}'
-                node=edge[i]
-                nodes=node.get("node")
-                resource=nodes.get("display_resources")
-                videourl=nodes.get("video_url")
-                isposttype=nodes.get("is_video")
-
-
-                src1080=resource[2]
-                if(isposttype == True):
-                    video=videourl
-                    file_url = video
-                    file_name = filenamev
-                    video=upload_file(file_url, file_name)
-                    # videocover.append(video)
-                    videopost.append(video)
-                else:
-                    file_url = src1080.get("src")
-                    file_name = filename
-                    image=upload_file(file_url, file_name)
-                    # imgcover.append(image)
-                    imagepost.append(image)         
-            return Response({"account_type":True,"videourls":videopost,"imageurls":imagepost,"username":username,"likes":likes,"profilepic":profile_pic,"type":"video"})
-        else:
-            istype=post.is_video
-            if(istype==True):
-                video=post.video_url
-                file_url = video
-                file_name = "VID"+username+".mp4"
+        return Response({"account_type":False,"videourls":videopost, "imageurls": imagepost, "username":username,"name":name ,"type":"video","caption":caption})
+    elif(ptype == "Sidecar"):
+        sidep=newstream.get("childPosts")
+        sidelength=len(sidep)
+        count=0
+        for i in range(sidelength):
+            sidenode=sidep[i]
+            sidetype=sidenode.get("type")
+            if(sidetype == "Image"):
+                file_url = sidenode.get("displayUrl")
+                file_name = "Vid"+username+str(i)+".png"
+                image=upload_file(file_url, file_name)
+                imagepost.append(image) 
+            elif(sidetype == "Video"):
+                file_url = sidenode.get("videoUrl")
+                file_name = "VID"+username+str(i)+".mp4"
                 video=upload_file(file_url, file_name)
                 videopost.append(video)
-                return Response({"account_type":False,"videourls":videopost, "imageurls": imagepost, "username":username,"likes":likes,"profilepic":profile_pic,"type":"video"})
-            else:
-                image=post.url
-                file_url = image
-                file_name = "VID"+username+".png"
-                image=upload_file(file_url, file_name)
-                imagepost.append(image)
-                return Response({"stream":media,"account_type":False,"imageurls":imagepost,"videourls": videopost,"username":username,"likes":likes,"profilepic":profile_pic,"type":"image"})
+    elif(ptype == "Image"):
+        file_url = newstream.get("displayUrl")
+        file_name = "Vid"+username+".png"
+        image=upload_file(file_url, file_name)
+        imagepost.append(image) 
+        return Response({"account_type":False,"videourls":videopost, "imageurls": imagepost, "username":username,"name":name ,"type":"video","caption":caption}) 
+    else:  
+        return Response({"account_type":True,"videourls":videopost, "imageurls": imagepost, "username":username,"name":name ,"type":"video","caption":caption})       
 
 
-
-
-
-
-
-
-
+    

@@ -91,14 +91,14 @@ function downloadFile(posturl, type) {
 // download video 
 function reqdownload() {
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "https://b19a-2401-4900-1f3f-e88a-4126-62cf-d609-86cd.ngrok-free.app/insta?link=" + linkf
+    var url = "https://freelance-project-ytmp3-production.up.railway.app/insta?link=" + linkf
     var type = "video"
     downloadFile(url, type)
 }
 // download image
 function reqdownloadimg() {
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "https://b19a-2401-4900-1f3f-e88a-4126-62cf-d609-86cd.ngrok-free.app/insta?link=" + linkf
+    var url = "https://freelance-project-ytmp3-production.up.railway.app/insta?link=" + linkf
     var type = "image"
     downloadFile(url, type)
 }
@@ -109,7 +109,7 @@ var loader = document.getElementById("loader")
 igdownload.addEventListener("click", () => {
     loader.style.display = "flex";
     var linkf = document.getElementById("postUrlInputIg").value;
-    var url = "https://b19a-2401-4900-1f3f-e88a-4126-62cf-d609-86cd.ngrok-free.app/insta?link=" + linkf
+    var url = "https://freelance-project-ytmp3-production.up.railway.app/insta?link=" + linkf
     fetch(url, { mode: 'cors', method: "GET" })
         .then((response) => response.json())
         .then((data) => {
@@ -143,11 +143,17 @@ igdownload.addEventListener("click", () => {
                      <div class="dcard">
                     <div class="profilerr">
                         <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" alt="profile">
-                        <span class="pun" >${data.username}</span>
+                        <div class="col">
+                                <span class="pun" >${data.username}</span>
+                                <span class="pun" >${data.name}</span>
+                                    </div>
                     </div>
                     <div class="cover">
                         <img src="${images[0]}" alt="expired">
                     </div>
+                    <div class="desc">
+                        <span class="pun" >${data.caption}</span>
+                    </div>                    
                     <div class="dowlik">
                         <a href="${images[0]}">Download Image</a>
                     </div>
@@ -165,7 +171,11 @@ igdownload.addEventListener("click", () => {
                             <div class="profilerr">
 
                                 <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" alt="profile">
+                                <div class="col">
                                 <span class="pun" >${data.username}</span>
+                                <span class="pun" >${data.name}</span>
+                                    </div>
+                                
                             </div>
                             <div class="cover">
                                 <video src="${videos[index]}" controls ></video>
@@ -185,7 +195,10 @@ igdownload.addEventListener("click", () => {
                     <div class="dcard">
                         <div class="profilerr">
                             <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" alt="profile">
-                            <span class="pun" >${data.username}</span>
+                            <div class="col">
+                                <span class="pun" >${data.username}</span>
+                                <span class="pun" >${data.name}</span>
+                                    </div>
                         </div>
                         <div class="cover">
                             <img src="${images[index]}" alt="expired">
