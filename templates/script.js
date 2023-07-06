@@ -60,7 +60,7 @@ igdownload.addEventListener("click", () => {
     fetch(url, { mode: 'cors', method: "GET" })
         .then((response) => response.json())
         .then((data) => {
-           
+
 
 
             const videos = data.videourls;
@@ -72,8 +72,12 @@ igdownload.addEventListener("click", () => {
                     <div class="dcard">
                         <div class="profilerr">
 
-                            <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" alt="profile">
-                            <span class="pun" >${data.username}</span>
+
+                        <div class="colname">
+                        <span class="pun" >${data.username}</span>
+                        <span class="pun" >${data.name}</span>
+                            </div>
+
                         </div>
                         <div class="cover">
                             <video src="${videos[0]}" controls ></video>
@@ -90,7 +94,7 @@ igdownload.addEventListener("click", () => {
                      <div class="dcard">
                     <div class="profilerr">
                         <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" alt="profile">
-                        <div class="col">
+                        <div class="colname">
                                 <span class="pun" >${data.username}</span>
                                 <span class="pun" >${data.name}</span>
                                     </div>
@@ -118,7 +122,7 @@ igdownload.addEventListener("click", () => {
                             <div class="profilerr">
 
                                 <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" alt="profile">
-                                <div class="col">
+                                <div class="colname">
                                 <span class="pun" >${data.username}</span>
                                 <span class="pun" >${data.name}</span>
                                     </div>
@@ -142,7 +146,7 @@ igdownload.addEventListener("click", () => {
                     <div class="dcard">
                         <div class="profilerr">
                             <img src="https://cdn-icons-png.flaticon.com/512/3106/3106773.png" alt="profile">
-                            <div class="col">
+                            <div class="colname">
                                 <span class="pun" >${data.username}</span>
                                 <span class="pun" >${data.name}</span>
                                     </div>
@@ -161,8 +165,8 @@ igdownload.addEventListener("click", () => {
             }
 
         }
-        
+
         ).catch(error =>
-        content.innerHTML = `<h1>Please check Your URL or Check if the Account is Not PRIVATE</h1>`
-    )
+            content.innerHTML = `<h1>Please check Your URL or Check if the Account is Not PRIVATE</h1>`
+        )
 })

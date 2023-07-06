@@ -120,6 +120,8 @@ def InstaDownloader(request):
                 file_name = "VID"+username+str(i)+".mp4"
                 video=upload_file(file_url, file_name)
                 videopost.append(video)
+        return Response({"account_type":False,"videourls":videopost, "imageurls": imagepost, "username":username,"name":name ,"type":"Sidecar","caption":caption}) 
+
     elif(ptype == "Image"):
         file_url = newstream.get("displayUrl")
         file_name = "Vid"+username+".png"
